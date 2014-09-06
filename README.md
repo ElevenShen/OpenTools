@@ -1,6 +1,27 @@
 #opstools 运维工具库
 ========
 
+##pqlist.php
+pqlist 运维排期表工具：
+支持按照指定周期进行排班；
+支持按照指定时间提前排版；
+支持顺序轮转或随机排班；
+支持使用本地MTA发送排班邮件；
+###Usage
+```
+$ php pqlist.php 
+2014-09-09 Tuesday user2[email2] <br>
+2014-09-10 Wednesday user4[email4] <br>
+2014-09-11 Thursday user7[email7] <br>
+2014-09-12 Friday user6[email6] <br>
+2014-09-13 Saturday user1[email1] <br>
+2014-09-14 Sunday user5[email5] <br>
+2014-09-15 Monday user3[email3] <br>
+```
+
+
+
+
 ##checkurl.pl
 一个URL下载状态及时间检测脚本，能检测不同Dns Server的解析地址，能显示IP的地域信息；
 
