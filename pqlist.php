@@ -72,7 +72,7 @@ function get_rotate_period() {
 	$output = "";
 	$c = count($array_userlist);
 	while ($i <= $pq_period+$pq_aheadtime-1) {
-		$n = $i % count($array_userlist);
+		$n = $i % $c;
 		if ($pq_week_cn == 1 and $pq_weekarray != "") {
 			$week = date("w", strtotime("+$i day"));
 			$week_name = $pq_weekarray[$week];
