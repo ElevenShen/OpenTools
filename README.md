@@ -13,13 +13,13 @@
 ###Usage
 ```
 $ php pqlist.php 
-2014-09-09 Tuesday user2[email2] <br>
-2014-09-10 Wednesday user4[email4] <br>
-2014-09-11 Thursday user7[email7] <br>
-2014-09-12 Friday user6[email6] <br>
-2014-09-13 Saturday user1[email1] <br>
-2014-09-14 Sunday user5[email5] <br>
-2014-09-15 Monday user3[email3] <br>
+2014-09-10 Wednesday user2[email2] <br>
+2014-09-11 Thursday user4[email4] <br>
+2014-09-12 Friday user1[email1] <br>
+2014-09-13 Saturday user5[email5] <br>
+2014-09-14 Sunday user3[email3] <br>
+2014-09-15 Monday user2[email2] <br>
+2014-09-16 Tuesday user4[email4] <br>
 ```
 
 

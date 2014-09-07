@@ -1,10 +1,9 @@
 <?php
 ### format: username,email,mobile
-$pq_userlist = array("user3,email3,135xxxxxxx3", 
+$pq_userlist = array(
+"user3,email3,135xxxxxxx3", 
 "user2,email2,135xxxxxxx2",
 "user4,email4,135xxxxxxx4",
-"user7,email7,135xxxxxxx7",
-"user6,email6,135xxxxxxx6",
 "user1,email1,135xxxxxxx1",
 "user5,email5,135xxxxxxx5",
 );
@@ -36,7 +35,7 @@ function send_mail($mail_to, $mail_subject, $period_list) {
         $headers .= 'Content-type: text/html; charset=utf-8' . "\n";
         $headers .= "From: =?utf-8?B?".base64_encode($mail_adminname)."?= <" . $mail_noreply . ">" . "\n";
         $headers .= 'Cc : '. $mail_adminmail . "\n";
-        $headers .= 'References: <PQLIST.'.date("m").'@pqlist>' . "\n";
+        $headers .= 'References: <PQLIST.'.date("Ym").'@pqlist>' . "\n";
         $headers .= "\n\r";
 
 	$message = "<h2>$period_list</h2>";
