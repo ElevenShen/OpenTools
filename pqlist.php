@@ -86,6 +86,6 @@ function get_rotate_period() {
 		$i++;
 	}
 	$i_s = $i - 1;
-	$mail_subject = $mail_subject . " " . date("Y-m-d", strtotime("+3 day")) . ' -- ' . date("Y-m-d", strtotime("+$i_s day"));
+	$mail_subject = $mail_subject . " " . date("Y-m-d", strtotime("+$pq_aheadtime day")) . ' -- ' . date("Y-m-d", strtotime("+$i_s day"));
 	return $output;
 }
