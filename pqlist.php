@@ -58,7 +58,7 @@ function get_userlist($pq_userlist) {
 		$i++;
 		$n = ($i + $p_number) % $u_count;
 
-		$a = preg_split("/,/", $v);
+		$a = explode(',', $v);
 		$r[$n] = $a; 
 	}
 	if ($pq_mode == "random") shuffle($r);
