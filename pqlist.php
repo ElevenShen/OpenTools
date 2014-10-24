@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("Asia/Shanghai");
+
 ### format: username,email,mobile
 $pq_userlist = array(
 "user3,email3,135xxxxxxx3", 

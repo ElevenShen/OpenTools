@@ -26,12 +26,15 @@ $ php pqlist.php
 
 
 ##checkurl.pl
-一个URL下载状态及时间检测脚本，能检测不同Dns Server的解析地址，能显示IP的地域信息；
+一个URL下载状态及时间检测脚本：
+能检测不同Dns Server的解析地址，能显示IP的地域信息；
+能在DNS解析配置之前，测试CDN提供的CNAME地址的可用性；
 
 ###Usage
 
 ```
-$ perl checkurl.pl 'http://fmn.xnimg.cn/robots.txt'
+$ perl checkurl.pl 'http://fmn.xnimg.cn/robots.txt' 
+$ perl checkurl.pl 'http://fmn.xnpic.com.cdn20.com/robots.txt' fmn.xnimg.cn  ### Test CDN CNAME
 
 http://fmn.xnimg.cn/robots.txt
 

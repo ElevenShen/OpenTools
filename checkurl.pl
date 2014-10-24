@@ -3,13 +3,26 @@
 use Data::Dumper;
 
 $url = $ARGV[0];
+$real_domain = $ARGV[1];
 $url_tmpl = $url;
+
+if ($url eq "") {
+	printf "Usage: $0 <TestURL> <RealDomain Or Empty>\n";
+	exit;
+}
 
 if ($url =~ /(.*?):\/\/(.*?)\//) {
 	$hostname = $2;
 } else {
 	printf("fail to match domain name\n");
 	exit;
+}
+
+if ($real_domain eq "") {
+	$real_hostname = $hostname;
+} else {
+	$real_hostname = $real_domain; #Change CDN CNAME Domain
+	$url =~ s/$hostname/$real_hostname/;
 }
 printf "\n$url\n\n";
 
@@ -44,7 +57,8 @@ foreach $ns (@ns_list) {
 	$ret = qx/host $hostname $ns/;
 	$ret =~ s/^.*?has address //gms;
 
-	if ($ret == "") {
+	if ($ret =~ "not found") {
+		printf "$hostname\n";
 		$ret = qx/host $hostname $ns/;
 		$ret =~ s/^.*?has address //gms;
 	}
@@ -60,7 +74,7 @@ foreach $ns (@ns_list) {
 		$test_url = sprintf($url_tmpl, $addr);
 		for ($i = 0; $i < 1; $i++) {
 			print "$addr\t";
-			print qx/curl -o \/dev\/null -s -w"http_code:\%{http_code}\\t size_header:\%{size_header}\\t size_download:\%{size_download}\\t time_connect:\%{time_connect}\\t time_starttransfer:\%{time_starttransfer}\\t time_total:\%{time_total}\\n" -H "Host: $hostname" $test_url/;
+			print qx/curl -o \/dev\/null -s -w"http_code:\%{http_code}\\t size_header:\%{size_header}\\t size_download:\%{size_download}\\t time_connect:\%{time_connect}\\t time_starttransfer:\%{time_starttransfer}\\t time_total:\%{time_total}\\n" -H "Host: $real_hostname" $test_url/;
 		}
 		printf("\n");
 	}
