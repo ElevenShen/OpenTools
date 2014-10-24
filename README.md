@@ -33,7 +33,7 @@ $ php pqlist.php
 ###Usage
 
 ```
-$ perl checkurl.pl 'http://fmn.xnimg.cn/robots.txt' 
+$ perl checkurl.pl 'http://fmn.xnimg.cn/robots.txt'
 $ perl checkurl.pl 'http://fmn.xnpic.com.cdn20.com/robots.txt' fmn.xnimg.cn  ### Test CDN CNAME
 
 http://fmn.xnimg.cn/robots.txt
