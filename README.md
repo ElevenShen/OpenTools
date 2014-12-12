@@ -8,20 +8,31 @@
 支持按照指定时间提前排班；
 支持顺序轮转或随机排班；
 支持使用本地MTA发送排班邮件；
+
+20141212新增功能:
+支持配置同时值班人数；
+支持配置每次值班持续天数；
+
 ````
 
 ###Usage
 ```
 $ php pqlist.php 
-2014-09-10 Wednesday user2[email2] <br>
-2014-09-11 Thursday user4[email4] <br>
-2014-09-12 Friday user1[email1] <br>
-2014-09-13 Saturday user5[email5] <br>
-2014-09-14 Sunday user3[email3] <br>
-2014-09-15 Monday user2[email2] <br>
-2014-09-16 Tuesday user4[email4] <br>
-```
+2014-12-15 Monday -- 2014-12-21 Sunday user4[email4] user6[email6]  <br>
+2014-12-22 Monday -- 2014-12-28 Sunday user5[email5] user7[email7]  <br>
+2014-12-29 Monday -- 2015-01-04 Sunday user6[email6] user1[email1]  <br>
+2015-01-05 Monday -- 2015-01-11 Sunday user7[email7] user2[email2]  <br>
+2015-01-12 Monday -- 2015-01-18 Sunday user1[email1] user3[email3]  <br>
+2015-01-19 Monday -- 2015-01-25 Sunday user2[email2] user4[email4]  <br>
+2015-01-26 Monday -- 2015-02-01 Sunday user3[email3] user5[email5]  <br>
+2015-02-02 Monday -- 2015-02-08 Sunday user4[email4] user6[email6]  <br>
+2015-02-09 Monday -- 2015-02-15 Sunday user5[email5] user7[email7]  <br>
+2015-02-16 Monday -- 2015-02-22 Sunday user6[email6] user1[email1]  <br>
+2015-02-23 Monday -- 2015-03-01 Sunday user7[email7] user2[email2]  <br>
+2015-03-02 Monday -- 2015-03-08 Sunday user1[email1] user3[email3]  <br>
+2015-03-09 Monday -- 2015-03-15 Sunday user2[email2] user4[email4]  <br>
 
+```
 
 
 
