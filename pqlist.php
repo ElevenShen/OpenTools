@@ -9,7 +9,6 @@ $pq_userlist = array(
 "user4,email4,135xxxxxxx4",
 "user5,email5,135xxxxxxx5",
 "user6,email6,135xxxxxxx6",
-"user7,email7,135xxxxxxx7",
 );
 
 $pq_week_cn = 0; // Chinese Weekname:  0 disable or 1 enable 
@@ -80,7 +79,7 @@ function get_rotate_period() {
 	$t_i = 0;
 	$nn = 1;
 	$c = count($array_userlist);
-	$c_n = $c % $pq_sametime + 1;
+	$c_n = $c % $pq_sametime + 2;
 	while ($i <= $pq_period+$pq_aheadtime-1) {
 		$n = ($nn++ + 1) % $c;
 		if ($pq_sametime > 1) $m = ($n + $c_n) % $c;

@@ -18,17 +18,17 @@
 ###Usage
 ```
 $ php pqlist.php 
-2014-12-15 Monday -- 2014-12-21 Sunday user4[email4] user6[email6]  <br>
-2014-12-22 Monday -- 2014-12-28 Sunday user5[email5] user7[email7]  <br>
-2014-12-29 Monday -- 2015-01-04 Sunday user6[email6] user1[email1]  <br>
-2015-01-05 Monday -- 2015-01-11 Sunday user7[email7] user2[email2]  <br>
-2015-01-12 Monday -- 2015-01-18 Sunday user1[email1] user3[email3]  <br>
-2015-01-19 Monday -- 2015-01-25 Sunday user2[email2] user4[email4]  <br>
-2015-01-26 Monday -- 2015-02-01 Sunday user3[email3] user5[email5]  <br>
-2015-02-02 Monday -- 2015-02-08 Sunday user4[email4] user6[email6]  <br>
-2015-02-09 Monday -- 2015-02-15 Sunday user5[email5] user7[email7]  <br>
-2015-02-16 Monday -- 2015-02-22 Sunday user6[email6] user1[email1]  <br>
-2015-02-23 Monday -- 2015-03-01 Sunday user7[email7] user2[email2]  <br>
+2014-12-15 Monday -- 2014-12-21 Sunday user2[email2] user4[email4]  <br>
+2014-12-22 Monday -- 2014-12-28 Sunday user3[email3] user5[email5]  <br>
+2014-12-29 Monday -- 2015-01-04 Sunday user4[email4] user6[email6]  <br>
+2015-01-05 Monday -- 2015-01-11 Sunday user5[email5] user1[email1]  <br>
+2015-01-12 Monday -- 2015-01-18 Sunday user6[email6] user2[email2]  <br>
+2015-01-19 Monday -- 2015-01-25 Sunday user1[email1] user3[email3]  <br>
+2015-01-26 Monday -- 2015-02-01 Sunday user2[email2] user4[email4]  <br>
+2015-02-02 Monday -- 2015-02-08 Sunday user3[email3] user5[email5]  <br>
+2015-02-09 Monday -- 2015-02-15 Sunday user4[email4] user6[email6]  <br>
+2015-02-16 Monday -- 2015-02-22 Sunday user5[email5] user1[email1]  <br>
+2015-02-23 Monday -- 2015-03-01 Sunday user6[email6] user2[email2]  <br>
 2015-03-02 Monday -- 2015-03-08 Sunday user1[email1] user3[email3]  <br>
 2015-03-09 Monday -- 2015-03-15 Sunday user2[email2] user4[email4]  <br>
 
