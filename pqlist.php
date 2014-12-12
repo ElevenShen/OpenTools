@@ -98,8 +98,7 @@ function get_rotate_period() {
 		if ($pq_eachdays == 1) {
 			$output .= date("Y-m-d", strtotime("+$i day")) . " " 
 				. $week_name . " "
-				. $array_userlist[$n][0] . "[" . $array_userlist[$n][1] . "]" 
-				. " <br>\n";
+				. $array_userlist[$n][0] . "[" . $array_userlist[$n][1] . "] ";
 			$i++;
 		} else {
 			$output .= date("Y-m-d", strtotime("+$i day")) . " " 
@@ -107,16 +106,16 @@ function get_rotate_period() {
 				. "-- " . date("Y-m-d", strtotime("+$t_i day")) . " "
 				. $week_last_name . " "
 				. $array_userlist[$n][0] . "[" . $array_userlist[$n][1] . "] ";
-
-			if ($pq_sametime > 1) {
-				$output .= $array_userlist[$m][0] . "[" . $array_userlist[$m][1] . "] ";
-			}
-			if ($pq_sametime > 2) {
-				$output .= $array_userlist[$o][0] . "[" . $array_userlist[$o][1] . "] ";
-			}
-			$output .= " <br>\n";
 			$i += $pq_eachdays;
 		}
+
+		if ($pq_sametime > 1) {
+			$output .= $array_userlist[$m][0] . "[" . $array_userlist[$m][1] . "] ";
+		}
+		if ($pq_sametime > 2) {
+			$output .= $array_userlist[$o][0] . "[" . $array_userlist[$o][1] . "] ";
+		}
+		$output .= " <br>\n";
 
 	}
 	$i_s = $i - 1;
