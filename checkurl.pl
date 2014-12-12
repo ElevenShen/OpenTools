@@ -55,11 +55,12 @@ $url_tmpl =~ s@(.*?)://(.*?)/@$1://\%s/@;
 
 foreach $ns (@ns_list) {
 	printf "####################\nDns Server ";
-	printf `curl 'http://ip.cn/?ip=$ns' 2>/dev/null`;
 
 	if ($ns !~ /^(\d{1,3}\.){3}\d{1,3}$/) {
 		next;
 	}
+
+	printf `curl -m 10 'http://ip.cn/?ip=$ns' 2>/dev/null`;
 	$ret = qx/host $hostname $ns/;
 	$ret =~ s/^.*?has address //gms;
 
@@ -75,12 +76,13 @@ foreach $ns (@ns_list) {
 		if ($addr !~ /^(\d{1,3}\.){3}\d{1,3}$/) {
 			next;
 		}
-		printf `curl 'http://ip.cn/?ip=$addr' 2>/dev/null`;
+		printf "Web Server ";
+		printf `curl -m 10 'http://ip.cn/?ip=$addr' 2>/dev/null`;
 
 		$test_url = sprintf($url_tmpl, $addr);
 		for ($i = 0; $i < 1; $i++) {
 			print "$addr\t";
-			print qx/curl -o \/dev\/null -s -w"http_code:\%{http_code}\\t size_header:\%{size_header}\\t size_download:\%{size_download}\\t time_connect:\%{time_connect}\\t time_starttransfer:\%{time_starttransfer}\\t time_total:\%{time_total}\\n" -H "Host: $real_hostname" $test_url/;
+			print qx/curl -m 20 -o \/dev\/null -s -w"http_code:\%{http_code}\\t size_header:\%{size_header}\\t size_download:\%{size_download}\\t time_connect:\%{time_connect}\\t time_starttransfer:\%{time_starttransfer}\\t time_total:\%{time_total}\\n" -H "Host: $real_hostname" $test_url/;
 		}
 		printf("\n");
 	}
