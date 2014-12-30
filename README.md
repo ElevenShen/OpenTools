@@ -1,6 +1,13 @@
 #opstools 运维工具库
 ========
 
+##checkdomain.php
+####checkdomain 域名注册信息检查监控工具：
+````
+通过whois或jwhois命令检查域名注册时间、过期时间等值；
+支持单域名、多域名(,号分割)、域名文件列表(每行一个域名)输入；
+````
+
 ##pqlist.php
 ####pqlist 运维排期表工具：
 ````
