@@ -10,14 +10,16 @@ if (count($argv) != 2) {
 }
 
 
+$domain_input = $argv[1];
 $check_output = array();
+$array_remaining_date = array();
 $i = 0;
 $id = 1;
-$domain_input = $argv[1];
 $config_filter_format = array("Updated Date", "Creation Date", "Creation date", "Expiration Date", "Registrant Organization", 
-                        "Registration Date", "Registrant:", "Name Server", "Registry Expiry Date",
+                        "Registration Date", "Registrant:", "Name Server", "Registry Expiry Date", "Domain Name Commencement Date",
                         "Expiry", "Owner", "NS 1", "Expiry Date");
 $config_convert_format = array("Creation Date" => "Registration Date", "Creation date" => "Registration Date",
+                        "Domain Name Commencement Date" => "Registration Date",
                         "Registrant" => "Registrant Organization", "Expiry Date" => "Expiration Date",
                         "Expiry" => "Expiration Date", "Owner" => "Registrant Organization", "NS 1" => "Name Server",
                         "Registry Expiry Date" => "Expiration Date", "Registrar Registration Expiration Date" => "Expiration Date");
@@ -25,6 +27,7 @@ $config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Re
 $config_output_format = array("Expiration Date", "Registration Date", "Name Server", "Registrant Organization");
 
 $is_echo_msg = "yes"; // yes or no
+$sleep_time = 1; // sleep time, Default: 1 second
 
 ### require local MTA ###
 $is_send_mail = "no"; // yes or no
@@ -44,7 +47,7 @@ if (is_file($domain_input)) {
 foreach ($domains AS $domain) {
     $domain = trim($domain);
     check_whois($domain);
-    sleep(1);
+    sleep($sleep_time);
 }
 
 $message = "\n";
@@ -121,17 +124,16 @@ function send_mail($mail_to, $mail_subject, $message) {
 }
 
 function check_whois ($domain) {
-    global $config_filter_format, $check_output, $config_expiration_format, $config_convert_format, $array_remaining_date;
+    global $config_filter_format, $check_output, $config_expiration_format, $config_convert_format, $array_remaining_date, $sleep_time;
 
     $config_match = implode('|', $config_filter_format);
 
     @exec("whois $domain", $result);
     if (!@exec("whois $domain", $result)) {
         $result = array();
-        sleep(1);
+        sleep($sleep_time);
         @exec("whois $domain", $result);
     }
-    sleep(1);
 
     foreach ($result AS $value) {
         if (preg_match("/:/", $value) and preg_match("/^\s+$config_match/", $value)) {
