@@ -61,7 +61,7 @@ $message_mail .= "<br><br>\n";
 
 $message .= " 编号 | 域名 | 剩余时间 | 过期时间 | 注册时间 | 域名服务商 | 注册主体 |\n";
 $message_mail .= ' <table width="1100" border="1" cellpadding="2" cellspacing="0" bordercolorlight="#000000" bordercolordark="#FFFFFF" bgcolor="#FFFFEE">
-        <tr><th>编号</td><th>域名</th><th>剩余时间</th><th>过期时间</th><th>注册时间</th><th>域名服务商</th><th>注册主体</th></tr>';
+        <tr><th>编号</th><th>域名</th><th>剩余时间</th><th>过期时间</th><th>注册时间</th><th>域名服务商</th><th>注册主体</th></tr>';
 foreach ($domains AS $domain) {
     $domain = trim($domain);
 
