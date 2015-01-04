@@ -6,10 +6,9 @@
 ````
 通过本地whois或jwhois命令检查域名注册时间、过期时间等值；
 支持单域名、多域名(,号分割)、域名文件列表(每行一个域名)输入；
-支持文本格式化输出；
-支持本地MTA发送html格式化邮件；
-支持排序突出显示最少过期时间的5个域名；
-支持多种后缀域名有注册效期查询，包括：.com/.cn/.com.cn/.ren/.net/.org/.io/.im等；
+支持文本格式化输出,支持本地MTA发送html格式化邮件；
+支持排序突出显示最少过期时间的前5个域名；
+支持多种后缀域名有注册有效期查询，包括：.com/.cn/.com.cn/.ren/.net/.org/.io/.im等；
 ````
 ```
 $ php checkdomain.php google.com,blog.cn,sina.com.cn,csdn.net,wooyun.org,github.io,google.im,tianxia.ren
