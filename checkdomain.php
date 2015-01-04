@@ -22,6 +22,8 @@ $config_convert_format = array("Creation Date" => "Registration Date", "Creation
 $config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Registrar Registration Expiration Date");
 $config_output_format = array("Expiration Date", "Registration Date", "Name Server", "Registrant Organization");
 
+$is_echo_msg = "yes"; // yes or no
+
 ### require local MTA ###
 $is_send_mail = "no"; // yes or no
 $mail_adminname = "DomainCheck"; 
@@ -75,7 +77,7 @@ foreach ($domains AS $domain) {
         $bgcolor = "";
     }
 
-    $message .= " | " . $domain . " \t| " . $check_output[$domain]["remaining_date"] . " | ";
+    $message .= " | $id | " . $domain . " \t| " . $check_output[$domain]["remaining_date"] . " | ";
     $message_mail .= "<tr $bgcolor><td>" . $id++ . "</td><td>" . $domain . "</td><td>" . $check_output[$domain]["remaining_date"] . "</td>";
     foreach ($config_output_format AS $key) {
         if (!isset($check_output[$domain][$key])) {
@@ -92,7 +94,9 @@ foreach ($domains AS $domain) {
 $message .= "\n";
 $message_mail .= "</table><br><br>\n";
 
-#echo $message;
+if ($is_echo_msg == "yes") {
+    echo $message;
+}
 if ($is_send_mail == "yes") {
     send_mail($mail_to, $mail_subject, $message_mail);
 }
