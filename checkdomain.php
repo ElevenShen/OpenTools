@@ -15,11 +15,13 @@ $i = 0;
 $id = 1;
 $domain_input = $argv[1];
 $config_filter_format = array("Updated Date", "Creation Date", "Creation date", "Expiration Date", "Registrant Organization", 
-                        "Registration Date", "Registrant:", "Name Server", "Registry Expiry Date");
+                        "Registration Date", "Registrant:", "Name Server", "Registry Expiry Date",
+                        "Expiry", "Owner", "NS 1", "Expiry Date");
 $config_convert_format = array("Creation Date" => "Registration Date", "Creation date" => "Registration Date",
-                        "Registrant" => "Registrant Organization", 
+                        "Registrant" => "Registrant Organization", "Expiry Date" => "Expiration Date",
+                        "Expiry" => "Expiration Date", "Owner" => "Registrant Organization", "NS 1" => "Name Server",
                         "Registry Expiry Date" => "Expiration Date", "Registrar Registration Expiration Date" => "Expiration Date");
-$config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Registrar Registration Expiration Date");
+$config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Registrar Registration Expiration Date", "Expiry");
 $config_output_format = array("Expiration Date", "Registration Date", "Name Server", "Registrant Organization");
 
 $is_echo_msg = "yes"; // yes or no
@@ -61,7 +63,7 @@ foreach ($array_remaining_date AS $k => $v) {
 $message .= "\n\n";
 $message_mail .= "<br><br>\n";
 
-$message .= " 编号 | 域名 | 剩余时间 | 过期时间 | 注册时间 | 域名服务商 | 注册主体 |\n";
+$message .= " | 编号 | 域名 | 剩余时间 | 过期时间 | 注册时间 | 域名服务商 | 注册主体 |\n";
 $message_mail .= ' <table width="1100" border="1" cellpadding="2" cellspacing="0" bordercolorlight="#000000" bordercolordark="#FFFFFF" bgcolor="#FFFFEE">
         <tr><th>编号</th><th>域名</th><th>剩余时间</th><th>过期时间</th><th>注册时间</th><th>域名服务商</th><th>注册主体</th></tr>';
 foreach ($domains AS $domain) {
@@ -132,7 +134,7 @@ function check_whois ($domain) {
     sleep(1);
 
     foreach ($result AS $value) {
-        if (preg_match( "/^\s+$config_match/", $value )) {
+        if (preg_match("/:/", $value) and preg_match("/^\s+$config_match/", $value)) {
             $split_value = preg_split("/:/", $value);
             $k = trim($split_value[0]);
             $v = trim($split_value[1]);
@@ -142,13 +144,20 @@ function check_whois ($domain) {
             if (isset($config_convert_format[$k])) {
                 $k = $config_convert_format[$k];
             }
+            if (isset($check_output[$domain][$k])) {
+                continue;
+            }
             if (preg_match("/Date/i", $k)) {
-                $v = preg_replace("/\s+\w+$/", "", $v); 
-                $v = preg_replace("/T\d+$/", "", $v); 
+                $v = preg_replace("/\s+\w+\s*$/", "", $v);
+                $v = preg_replace("/T\d+$/", "", $v);
+                $v = preg_replace("/\//", "-", $v);
                 $v = date("Y-m-d", strtotime($v));
             }
             if (in_array($k, $config_expiration_format)) {
                 $remaining_date = intval((strtotime($v) - time()) / 86400) . "天";
+                if ($remaining_date < -100) {
+                    continue;
+                }
                 $check_output[$domain]["remaining_date"] = $remaining_date;
                 $array_remaining_date[$remaining_date] = $domain;
             }

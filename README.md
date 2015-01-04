@@ -4,9 +4,35 @@
 ##checkdomain.php
 ####checkdomain 域名注册信息检查监控工具：
 ````
-通过whois或jwhois命令检查域名注册时间、过期时间等值；
+通过本地whois或jwhois命令检查域名注册时间、过期时间等值；
 支持单域名、多域名(,号分割)、域名文件列表(每行一个域名)输入；
+支持文本格式化输出；
+支持本地MTA发送html格式化邮件；
+支持排序突出显示最少过期时间的5个域名；
+支持多种后缀域名有注册效期查询，包括：.com/.cn/.com.cn/.ren/.net/.org/.io/.im等；
 ````
+```
+$ php checkdomain.php google.com,blog.cn,sina.com.cn,csdn.net,wooyun.org,github.io,google.im,tianxia.ren
+
+github.io 域名注册将在 62天 后过期
+blog.cn 域名注册将在 83天 后过期
+wooyun.org 域名注册将在 121天 后过期
+google.im 域名注册将在 211天 后过期
+tianxia.ren 域名注册将在 283天 后过期
+
+
+ | 编号 | 域名 | 剩余时间 | 过期时间 | 注册时间 | 域名服务商 | 注册主体 |
+ | 1 | google.com   | 2079天 | 2020-09-14   | 1997-09-15    | NS1.GOOGLE.COM    | Google Inc.   | 
+ | 2 | blog.cn      | 83天 | 2015-03-29     | 2003-03-29    | dns1.name-services.com    | Blog.cn, Inc.     | 
+ | 3 | sina.com.cn  | 1794天 | 2019-12-04   | 1998-11-20    | ns3.sina.com.cn   | 北京新浪互联信息服务有限公司  | 
+ | 4 | csdn.net     | 796天 | 2017-03-11    | 1999-03-11    | NS3.DNSV3.COM     | Beijing Chuangxin Lezhi Co.ltd    | 
+ | 5 | wooyun.org   | 121天 | 2015-05-06    | 2010-05-06    | NS1.DNSV2.COM     | Beijing Bigfish Technology    | 
+ | 6 | github.io    | 62天 | 2015-03-08     |  NULL     | ns1.p16.dynect.net    | Domain Administrator  | 
+ | 7 | google.im    | 211天 | 2015-08-04    |  NULL     | ns1.google.com.   |  NULL     | 
+ | 8 | tianxia.ren  | 283天 | 2015-10-15    | 2014-10-15    | ns1.zdns.cn   | Shen Yong     | 
+
+```
+
 
 ##pqlist.php
 ####pqlist 运维排期表工具：
