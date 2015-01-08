@@ -5,7 +5,7 @@
 date_default_timezone_set("Asia/Shanghai");
 
 if (count($argv) != 2) {
-        echo "Usage: " . $argv[0] . " <Domain Or DomainList[domain1,domain2] Or ListFile]>\n";
+        echo "Usage: " . $argv[0] . " <Domain/IP Or DomainList/IPList[domain1,domain2] Or ListFile]>\n";
         exit;
 }
 
@@ -47,14 +47,16 @@ $message = "\n";
 $message_mail = "<br>";
 ksort($array_remaining_date, SORT_NUMERIC);
 foreach ($array_remaining_date AS $k => $v) {
-    if ($i++ >= 3) {
-        break;
+    foreach ($v AS $kk => $vv) {
+        if ($i++ >= 5) {
+            break;
+        }
+        if ($i == 1) {
+            $mail_subject = $mail_subject . " [" . $check_output[$vv]["remaining_date"] . "]";
+        }
+        $message .= $vv . " SSL证书将在 " . $check_output[$vv]["remaining_date"] . " 后过期\n";
+        $message_mail .= $vv . " SSL证书将在 " . $check_output[$vv]["remaining_date"] . " 后过期<br>";
     }
-    if ($i == 1) {
-        $mail_subject = $mail_subject . " [" . $check_output[$v]["remaining_date"] . "]";
-    }
-    $message .= $v . " SSL证书将在 " . $check_output[$v]["remaining_date"] . " 后过期\n";
-    $message_mail .= $v . " SSL证书将在 " . $check_output[$v]["remaining_date"] . " 后过期<br>";
 }
 $message .= "\n\n";
 $message_mail .= "<br><br>\n";
@@ -146,7 +148,7 @@ function check_ssl ($domain) {
             if (in_array($k, $config_expiration_format)) {
                 $remaining_date = intval((strtotime($v) - time()) / 86400) . "天";
                 $check_output[$domain]["remaining_date"] = $remaining_date;
-                $array_remaining_date[$remaining_date] = $domain;
+                $array_remaining_date[$remaining_date][$domain] = $domain;
             }
             $check_output[$domain][$k] = $v; 
         }

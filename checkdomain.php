@@ -54,14 +54,16 @@ $message = "\n";
 $message_mail = "<br>";
 ksort($array_remaining_date, SORT_NUMERIC);
 foreach ($array_remaining_date AS $k => $v) {
-    if ($i++ >= 5) {
-        break;
+    foreach ($v AS $kk => $vv) {
+        if ($i++ >= 5) {
+            break;
+        }
+        if ($i == 1) {
+            $mail_subject = $mail_subject . " [" . $check_output[$vv]["remaining_date"] . "]";
+        }
+        $message .= $vv . " 域名注册将在 " . $check_output[$vv]["remaining_date"] . " 后过期\n";
+        $message_mail .= $vv . " 域名注册将在 " . $check_output[$vv]["remaining_date"] . " 后过期<br>";
     }
-    if ($i == 1) {
-        $mail_subject = $mail_subject . " [" . $check_output[$v]["remaining_date"] . "]";
-    }
-    $message .= $v . " 域名注册将在 " . $check_output[$v]["remaining_date"] . " 后过期\n";
-    $message_mail .= $v . " 域名注册将在 " . $check_output[$v]["remaining_date"] . " 后过期<br>";
 }
 $message .= "\n\n";
 $message_mail .= "<br><br>\n";
@@ -158,7 +160,7 @@ function check_whois ($domain) {
                     continue;
                 }
                 $check_output[$domain]["remaining_date"] = $remaining_date;
-                $array_remaining_date[$remaining_date] = $domain;
+                $array_remaining_date[$remaining_date][$domain] = $domain;
             }
             $check_output[$domain][$k] = $v; 
         }
