@@ -128,9 +128,9 @@ function check_whois ($domain) {
 
     $config_match = implode('|', $config_filter_format);
 
-    @exec("whois $domain", $result);
     if (!@exec("whois $domain", $result)) {
         $result = array();
+    	@exec("whois $domain", $result);
         sleep($sleep_time);
         @exec("whois $domain", $result);
     }
@@ -140,9 +140,6 @@ function check_whois ($domain) {
             $split_value = preg_split("/:/", $value);
             $k = trim($split_value[0]);
             $v = trim($split_value[1]);
-            if (isset($check_output[$domain][$k])) {
-                continue;
-            }
             if (isset($config_convert_format[$k])) {
                 $k = $config_convert_format[$k];
             }
