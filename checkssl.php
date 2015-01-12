@@ -123,10 +123,10 @@ function check_ssl ($domain) {
 
     $config_match = implode('|', $config_filter_format);
 
-    if (!@exec("echo | openssl s_client -connect $domain:443 2>/dev/null |  openssl x509 -noout -dates -subject -issuer", $result)) {
+    if (!@exec("echo | openssl s_client -connect $domain:443 2>/dev/null |  openssl x509 -noout -dates -subject -issuer 2>/dev/null", $result)) {
         $result = array();
         sleep($sleep_time);
-        @exec("echo | openssl s_client -connect $domain:443 2>/dev/null |  openssl x509 -noout -dates -subject -issuer", $result);
+        @exec("echo | openssl s_client -connect $domain:443 2>/dev/null |  openssl x509 -noout -dates -subject -issuer 2>/dev/null", $result);
     }
 
     foreach ($result AS $value) {
