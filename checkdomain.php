@@ -27,7 +27,7 @@ $config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Re
 $config_output_format = array("Expiration Date", "Registration Date", "Name Server", "Registrant Organization");
 
 $is_echo_msg = "yes"; // yes or no
-$sleep_time = 1; // sleep time, Default: 1 second
+$sleep_time = 2; // sleep time, Default: 1 second
 
 ### require local MTA ###
 $is_send_mail = "no"; // yes or no
@@ -132,6 +132,7 @@ function check_whois ($domain) {
 
     if (!@exec("whois $domain", $result)) {
         $result = array();
+        sleep($sleep_time);
     	@exec("whois $domain", $result);
         sleep($sleep_time);
         @exec("whois $domain", $result);
