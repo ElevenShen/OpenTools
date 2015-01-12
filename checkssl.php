@@ -139,6 +139,9 @@ function check_ssl ($domain) {
             if (isset($check_output[$domain][$k])) {
                 continue;
             }
+            if (preg_match("/issuer/", $k)) {
+                $v = urldecode(preg_replace("/\\\x/", "%", $v));
+            }
             if (preg_match("/notBefore|notAfter/i", $k)) {
                 $v = preg_replace("/\s+\w+\s*$/", "", $v);
                 $v = preg_replace("/T\d+$/", "", $v);

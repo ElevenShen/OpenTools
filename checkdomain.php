@@ -131,7 +131,6 @@ function check_whois ($domain) {
     $config_match = implode('|', $config_filter_format);
 
     if (!@exec("whois $domain", $result)) {
-        $result = array();
         sleep($sleep_time);
     	@exec("whois $domain", $result);
         sleep($sleep_time);
