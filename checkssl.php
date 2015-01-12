@@ -140,7 +140,7 @@ function check_ssl ($domain) {
                 continue;
             }
             if (preg_match("/issuer/", $k)) {
-                eval("\$v = \"$v\";");
+                $v = stripcslashes($v);
             }
             if (preg_match("/notBefore|notAfter/i", $k)) {
                 $v = preg_replace("/\s+\w+\s*$/", "", $v);
