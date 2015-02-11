@@ -15,19 +15,24 @@ $check_output = array();
 $array_remaining_date = array();
 $i = 0;
 $id = 1;
-$config_filter_format = array("Updated Date", "Creation Date", "Creation date", "Expiration Date", "Registrant Organization", 
+$config_filter_format = array("Updated Date", "Creation Date", "Creation date", "Created On",
+                        "Expiration Date", "Registrant Organization",
                         "Record expires", "Record created",
                         "Registration Date", "Registrant:",
                         "Registry Expiry Date", "Domain Name Commencement Date",
-                        "Expiry", "Owner",
-                        "Name Server", "NS 1", "Domain servers in listed order",
-                        "Expiry Date");
+                        "Expiry", "Expiry Date",
+                        "Owner", "Company name",
+                        "Name Server", "NS 1", "Domain servers in listed order", "Name Servers Information"
+                        );
 $config_convert_format = array("Creation Date" => "Registration Date", "Creation date" => "Registration Date",
+                        "Created On" => "Registration Date",
                         "Domain Name Commencement Date" => "Registration Date",
                         "Record created" => "Registration Date",
                         "Registrant" => "Registrant Organization", "Expiry Date" => "Expiration Date",
-                        "Expiry" => "Expiration Date", "Owner" => "Registrant Organization",
+                        "Expiry" => "Expiration Date",
+                        "Owner" => "Registrant Organization", "Company name" => "Registrant Organization",
                         "NS 1" => "Name Server", "Domain servers in listed order" => "Name Server",
+                        "Name Servers Information" => "Name Server",
                         "Record expires" => "Expiration Date",
                         "Registry Expiry Date" => "Expiration Date", "Registrar Registration Expiration Date" => "Expiration Date");
 $config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Registrar Registration Expiration Date", "Expiry");
@@ -144,7 +149,7 @@ function check_whois ($domain) {
         @exec("whois $domain", $result);
     }
     $result_text = join("\n", $result);
-    $result_text = preg_replace("/:\n/" , ":", $result_text);
+    $result_text = preg_replace("/:\n+/" , ":", $result_text);
     $result = preg_split("/\n/", $result_text);
 
     foreach ($result AS $value) {
