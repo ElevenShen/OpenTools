@@ -16,12 +16,19 @@ $array_remaining_date = array();
 $i = 0;
 $id = 1;
 $config_filter_format = array("Updated Date", "Creation Date", "Creation date", "Expiration Date", "Registrant Organization", 
-                        "Registration Date", "Registrant:", "Name Server", "Registry Expiry Date", "Domain Name Commencement Date",
-                        "Expiry", "Owner", "NS 1", "Expiry Date");
+                        "Record expires", "Record created",
+                        "Registration Date", "Registrant:",
+                        "Registry Expiry Date", "Domain Name Commencement Date",
+                        "Expiry", "Owner",
+                        "Name Server", "NS 1", "Domain servers in listed order",
+                        "Expiry Date");
 $config_convert_format = array("Creation Date" => "Registration Date", "Creation date" => "Registration Date",
                         "Domain Name Commencement Date" => "Registration Date",
+                        "Record created" => "Registration Date",
                         "Registrant" => "Registrant Organization", "Expiry Date" => "Expiration Date",
-                        "Expiry" => "Expiration Date", "Owner" => "Registrant Organization", "NS 1" => "Name Server",
+                        "Expiry" => "Expiration Date", "Owner" => "Registrant Organization",
+                        "NS 1" => "Name Server", "Domain servers in listed order" => "Name Server",
+                        "Record expires" => "Expiration Date",
                         "Registry Expiry Date" => "Expiration Date", "Registrar Registration Expiration Date" => "Expiration Date");
 $config_expiration_format = array("Expiration Date", "Registry Expiry Date", "Registrar Registration Expiration Date", "Expiry");
 $config_output_format = array("Expiration Date", "Registration Date", "Name Server", "Registrant Organization");
@@ -136,10 +143,13 @@ function check_whois ($domain) {
         sleep($sleep_time);
         @exec("whois $domain", $result);
     }
+    $result_text = join("\n", $result);
+    $result_text = preg_replace("/:\n/" , ":", $result_text);
+    $result = preg_split("/\n/", $result_text);
 
     foreach ($result AS $value) {
-        if (preg_match("/:/", $value) and preg_match("/^\s+$config_match/", $value)) {
-            $split_value = preg_split("/:/", $value);
+        if (preg_match("/(:| on )/", $value) and preg_match("/^\s+$config_match/", $value)) {
+            $split_value = preg_split("/(:| on )/", $value);
             $k = trim($split_value[0]);
             $v = trim($split_value[1]);
             if (isset($config_convert_format[$k])) {
@@ -152,6 +162,7 @@ function check_whois ($domain) {
                 $v = preg_replace("/\s+\w+\s*$/", "", $v);
                 $v = preg_replace("/T\d+$/", "", $v);
                 $v = preg_replace("/\//", "-", $v);
+                $v = preg_replace("/\s+\((\w|-)*\)$/", "", $v); // because .tw
                 $v = date("Y-m-d", strtotime($v));
             }
             if (in_array($k, $config_expiration_format)) {
