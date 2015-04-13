@@ -102,6 +102,9 @@ foreach ($domains AS $domain) {
         if (!isset($check_output[$domain][$key])) {
             $message .= " NULL \t| ";
             $message_mail .= " <td> NULL </td> ";
+            if (!isset($message_unknow_domain[$domain])) {
+                $message_unknow_domain[$domain] = $domain . " 域名过期时间未知<br>\n";
+            }
         } else {
             $message .= $check_output[$domain][$key] . " \t| ";
             $message_mail .= "<td>" . $check_output[$domain][$key] . " </td>";
@@ -112,6 +115,9 @@ foreach ($domains AS $domain) {
 }
 $message .= "\n";
 $message_mail .= "</table><br><br>\n";
+
+$message = join("", $message_unknow_domain) . $message;
+$message_mail = join("", $message_unknow_domain) . $message_mail;
 
 if ($is_echo_msg == "yes") {
     echo $message;
