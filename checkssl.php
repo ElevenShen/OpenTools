@@ -17,7 +17,7 @@ $i = 0;
 $id = 1;
 $config_filter_format = array("notBefore", "notAfter", "subject", "issuer");
 $config_expiration_format = array("notAfter");
-$config_output_format = array("notBefore", "notAfter", "subject", "issuer");
+$config_output_format = array("notBefore", "notAfter", "SAN", "issuer");
 
 $is_echo_msg = "yes"; // yes or no
 $sleep_time = 1; // sleep time, Default: 1 second
@@ -71,7 +71,7 @@ foreach ($domains AS $domain) {
         $check_output[$domain]["remaining_date"] = " NULL ";
     }
 
-    if ($check_output[$domain]["remaining_date"] <= 90 or $domain != $check_output[$domain]["subject"]) {
+    if ($check_output[$domain]["remaining_date"] <= 90 or !preg_match("/$domain/", $check_output[$domain]["SAN"])) {
         $bgcolor = "bgcolor='red'";
     } else {
         $bgcolor = "";
@@ -123,8 +123,8 @@ function check_ssl ($domain) {
 
     $config_match = implode('|', $config_filter_format);
 
+    $result = array();
     if (!@exec("echo | openssl s_client -connect $domain:443 2>/dev/null |  openssl x509 -noout -dates -subject -issuer 2>/dev/null", $result)) {
-        $result = array();
         sleep($sleep_time);
         @exec("echo | openssl s_client -connect $domain:443 2>/dev/null |  openssl x509 -noout -dates -subject -issuer 2>/dev/null", $result);
     }
@@ -156,6 +156,15 @@ function check_ssl ($domain) {
             $check_output[$domain][$k] = $v; 
         }
     }
+
+    #Subject Alternative Name
+    $result = array();
+    if (!@exec("echo | openssl s_client -connect $domain:443 2>/dev/null | openssl x509 -noout -text 2>/dev/null | grep DNS", $result)) {
+        @exec("echo | openssl s_client -connect $domain:443 2>/dev/null | openssl x509 -noout -text 2>/dev/null | grep DNS", $result);
+        sleep($sleep_time);
+    }
+    $check_output[$domain]["SAN"] = preg_replace("/DNS:/", "", trim($result[0]));
+
 }
 
 ?>
